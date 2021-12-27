@@ -1,7 +1,7 @@
 # debian-license-feeder
 
-This tool provide a Flask endpoint that takes as input a version of a package, and calling Debian APIs retrieves license information at file level.
+This tool provides a Flask endpoint that takes a version of a package as input, and calling Debian APIs retrieves license information at the file level.
 
-The REST API method provided makes use of SQL statements to augment the fasten knowledge base.
+The REST API method provided uses SQL statements to augment the fasten knowledge base.
 
 The `metadata` field of `package_versions` and `files` tables will be augmented with the license information retrieved.
