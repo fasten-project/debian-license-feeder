@@ -1,0 +1,25 @@
+{
+    "count": 2,
+    "result": {
+        "checksum": "9b1ce556bcfdbcbe8bb483c6ceb081ddffb06a6a082f9fa02b7768d4fcc74189",
+        "copyright": [
+            {
+                "license": "GPL-2+",
+                "oracle": "debian",
+                "origin": "/copyright/license/2ping/4.5-1/",
+                "package": "2ping",
+                "path": "2ping.egg-info/PKG-INFO",
+                "version": "4.5-1"
+            },
+            {
+                "license": "GPL-2+",
+                "oracle": "debian",
+                "origin": "/copyright/license/2ping/4.5-1/",
+                "package": "2ping",
+                "path": "PKG-INFO",
+                "version": "4.5-1"
+            }
+        ]
+    },
+    "return_code": 200
+}

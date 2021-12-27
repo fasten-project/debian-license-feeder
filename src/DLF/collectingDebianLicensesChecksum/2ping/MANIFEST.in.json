@@ -1,0 +1,17 @@
+{
+    "count": 1,
+    "result": {
+        "checksum": "0261eb6cde4a2ee93965a270a57bb0ae860672009df265bf63040557501ab394",
+        "copyright": [
+            {
+                "license": "GPL-2+",
+                "oracle": "debian",
+                "origin": "/copyright/license/2ping/4.5-1/",
+                "package": "2ping",
+                "path": "MANIFEST.in",
+                "version": "4.5-1"
+            }
+        ]
+    },
+    "return_code": 200
+}

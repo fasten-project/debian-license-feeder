@@ -1,0 +1,17 @@
+{
+    "count": 1,
+    "result": {
+        "checksum": "4207ed4b0593a3b2b7d36db34054f1853d6561cac7af2bc077e06a1ee4ce59fa",
+        "copyright": [
+            {
+                "license": "GPL-2+",
+                "oracle": "debian",
+                "origin": "/copyright/license/2ping/4.5-1/",
+                "package": "2ping",
+                "path": "twoping/utils.py",
+                "version": "4.5-1"
+            }
+        ]
+    },
+    "return_code": 200
+}

@@ -1,0 +1,17 @@
+{
+    "count": 1,
+    "result": {
+        "checksum": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+        "copyright": [
+            {
+                "license": "GPL-2+",
+                "oracle": "debian",
+                "origin": "/copyright/license/2ping/4.5-1/",
+                "package": "2ping",
+                "path": "2ping.egg-info/dependency_links.txt",
+                "version": "4.5-1"
+            }
+        ]
+    },
+    "return_code": 200
+}

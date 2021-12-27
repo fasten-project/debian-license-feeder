@@ -1,0 +1,33 @@
+{
+    "count": 3,
+    "result": {
+        "checksum": "a1cec664c15b55732d6da4313bc33627305aa56da5133281b8d585e2aa67d78d",
+        "copyright": [
+            {
+                "license": "GPL-2+",
+                "oracle": "debian",
+                "origin": "/copyright/license/2ping/3.2.1-1+deb9u1/",
+                "package": "2ping",
+                "path": "doc/Makefile",
+                "version": "3.2.1-1+deb9u1"
+            },
+            {
+                "license": "GPL-2+",
+                "oracle": "debian",
+                "origin": "/copyright/license/2ping/4.3-1/",
+                "package": "2ping",
+                "path": "doc/Makefile",
+                "version": "4.3-1"
+            },
+            {
+                "license": "GPL-2+",
+                "oracle": "debian",
+                "origin": "/copyright/license/2ping/4.5-1/",
+                "package": "2ping",
+                "path": "doc/Makefile",
+                "version": "4.5-1"
+            }
+        ]
+    },
+    "return_code": 200
+}

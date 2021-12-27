@@ -1,0 +1,17 @@
+{
+    "count": 1,
+    "result": {
+        "checksum": "5ded0ff90af8f75e5dd80e70361235aa4a0fa0b532c9719234a766c32c8c3e12",
+        "copyright": [
+            {
+                "license": "GPL-2+",
+                "oracle": "debian",
+                "origin": "/copyright/license/2ping/4.5-1/",
+                "package": "2ping",
+                "path": "twoping/crc32.py",
+                "version": "4.5-1"
+            }
+        ]
+    },
+    "return_code": 200
+}

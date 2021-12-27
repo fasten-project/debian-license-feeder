@@ -1,0 +1,49 @@
+{
+    "count": 5,
+    "result": {
+        "checksum": "53c234e5e8472b6ac51c1ae1cab3fe06fad053beb8ebfd8977b010655bfdd3c3",
+        "copyright": [
+            {
+                "license": null,
+                "oracle": "debian",
+                "origin": "/copyright/license/2ping/2.0-1/",
+                "package": "2ping",
+                "path": ".pc/.version",
+                "version": "2.0-1"
+            },
+            {
+                "license": null,
+                "oracle": "debian",
+                "origin": "/copyright/license/2ping/2.1.1-1/",
+                "package": "2ping",
+                "path": ".pc/.version",
+                "version": "2.1.1-1"
+            },
+            {
+                "license": "GPL-2+",
+                "oracle": "debian",
+                "origin": "/copyright/license/2ping/3.2.1-1+deb9u1/",
+                "package": "2ping",
+                "path": ".pc/.version",
+                "version": "3.2.1-1+deb9u1"
+            },
+            {
+                "license": "GPL-2+",
+                "oracle": "debian",
+                "origin": "/copyright/license/2ping/4.3-1/",
+                "package": "2ping",
+                "path": ".pc/.version",
+                "version": "4.3-1"
+            },
+            {
+                "license": "GPL-2+",
+                "oracle": "debian",
+                "origin": "/copyright/license/2ping/4.5-1/",
+                "package": "2ping",
+                "path": ".pc/.version",
+                "version": "4.5-1"
+            }
+        ]
+    },
+    "return_code": 200
+}
