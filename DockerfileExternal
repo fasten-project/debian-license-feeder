@@ -1,0 +1,8 @@
+FROM ubuntu:focal-20201106
+RUN apt-get update -y && apt-get install -y python3-pip python-dev libpq-dev git curl
+RUN git clone https://github.com/fasten-project/debian-license-feeder.git
+WORKDIR "/debian-license-feeder"
+RUN make
+WORKDIR "/debian-license-feeder/src/DLF"
+EXPOSE 3251
+CMD ["python3","DLFServer.py"]

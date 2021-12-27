@@ -1,0 +1,14 @@
+name: DLF image building and tests with Postman
+
+on: [push]
+
+jobs:
+  dlf_tests_postman:
+    runs-on: ubuntu-latest
+    name: DLF API with Postman tests (using Newman)
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: DLFServer API with Newman test
+      id: DLFServer
+      uses: ./
