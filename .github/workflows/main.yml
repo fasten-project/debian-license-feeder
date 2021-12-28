@@ -10,5 +10,5 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     - name: DLFServer API with Newman test
-      id: DLFServer
+      id: hello
       uses: ./
