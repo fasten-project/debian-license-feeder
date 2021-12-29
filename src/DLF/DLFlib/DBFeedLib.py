@@ -159,11 +159,9 @@ def getLicenseForFile(packageName,packageVersion):
             if ".json" in file:
                 fname = root+"/"+file
                 with open(fname, 'r') as f:
-                    #print("Opening file")
                     print(fname)
                     dict = json.load(f)
-                    #license = dict.get('result', {}).get('copyright',{}).get('license')
-                    print(dict['result']['copyright'][0]['license'])
-                    #newDict = dict['result']['copyright']
-                    #print(newDict)
-                    #print(newDict[0]['license'])
+                    versions = dict['result']['copyright']
+                    for i in range(len(versions)):
+                        if versions[i]['version'] == str(packageVersion):
+                            print(versions[i]['license'])

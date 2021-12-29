@@ -91,8 +91,7 @@ def APIEndpoints():
 
 
 @app.route('/DebianPackageVersion', methods=['POST', 'GET'])
-def GetDebianPackageVersion():
-    print("Hola")
+def GetDebianPackageVersion():    
     args = request.args
     packageNameAndVersion = args['packageNameAndVersion']
     packageNameAndVersion = packageNameAndVersion.split(",")
