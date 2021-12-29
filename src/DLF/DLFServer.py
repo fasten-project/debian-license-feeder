@@ -11,6 +11,7 @@ import flask
 import argparse
 import sys
 from DLFlib.DebianAPILib import *
+from DLFlib.DBFeedLib import *
 '''
 * SPDX-FileCopyrightText: 2021 Michele Scarlato <michele.scarlato@endocode.com>
 *
@@ -101,73 +102,11 @@ def GetDebianPackageVersion():
     print(packageVersion)
     DebianChecksumCollector(packageName,packageVersion)
     DebianLicenseCollector(packageName,packageVersion)
+    # here should go the populateDB function, which is
+    # a simulation of what will be inside fasten metadataDB
+    # pupulateDB(packageName,packageVersion)
     output = "Elaborating "+packageName+", version "+packageVersion+" ... "
     return output
-
-
-"""
-def DebianChecksumCollector(packageName,packageVersion):
-    parent_dir = "../collectingDebianLicenses"
-    dir = "../collectingDebianLicenses/"+packageName
-    print("Inside Debian License Collector function in the server")
-    #If the directory doesn't exist, create it and scan the package.
-    if not os.path.isdir(dir):
-        CreateDirectory(parent_dir,packageName)
-        RetrievePackageFilesAndDirectory(packageName,packageVersion)
-    #parse davfs2_pkg.json
-    print (packageName+"_pkg.json")
-    ScanJsonDir(packageName,packageVersion,dir,packageName+"_pkg.json")
-
-def DebianLicenseCollector(packageName,packageVersion):
-    parent_dir = "../collectingDebianLicenses"
-    dir = "../collectingDebianLicenses/"+packageName
-    parent_dirChecksum = "../collectingDebianLicensesChecksum/"+packageName
-    #If the directory doesn't exist, create it and scan the package.
-    if not os.path.isdir(parent_dirChecksum):
-        print("creating directory")
-        CreateDirectory(parent_dirChecksum,packageName)
-    else:
-        print(parent_dirChecksum+" already exists")
-    #this loop creates the first layer of files and directories
-    for (root,dirs,files) in os.walk(dir, topdown=True):
-        for file in files:
-            print(".. looping through files .. " +file)
-            if "_dir.json" in file or "_pkg.json" in file:
-                print("this is not json of a file" )
-                continue
-            if ".json" in file:
-                path = dir
-                pathChecksum = root.replace("collectingDebianLicenses","collectingDebianLicensesChecksum")
-                pathChecksum = pathChecksum+"/"+file
-                print(pathChecksum)
-                if not os.path.isfile(pathChecksum):
-                    path = path.replace("collectingDebianLicenses/"+packageName+"/","")
-                    print("Running ScanJsonDirChecksum upon :"+root+"/"+file)
-                    ScanJsonDirChecksum(root,packageName,file)
-                    time.sleep(1.2)
-        for directory in dirs:
-            print(root)
-            print(dirs)
-            print(".. looping through directory ..: " +root+"/"+directory)
-            rootCheckusm = root.replace("collectingDebianLicenses","collectingDebianLicensesChecksum/")
-            if not os.path.isdir(rootCheckusm+"/"+directory):
-                print("creating directory:"+rootCheckusm+"/"+directory)
-                CreateDirectory("",rootCheckusm+"/"+directory)
-            for file in os.listdir(root+"/"+directory):
-                if "_dir.json" in file or "_pkg.json" in file:
-                    print(file+" is not json of a file" )
-                    continue
-                if ".json" in file:
-                    path = dir
-                    pathChecksum = root.replace("collectingDebianLicenses","collectingDebianLicensesChecksum")
-                    pathChecksum = pathChecksum+"/"+directory+"/"+file
-                    print(pathChecksum)
-                    if not os.path.isfile(pathChecksum):
-                        path = path.replace("collectingDebianLicenses/"+packageName+"/","")
-                        print("Running ScanJsonDirChecksum upon :"+root+"/"+directory+"/"+file)
-                        ScanJsonDirChecksum(root+"/"+directory,packageName,file)
-                        time.sleep(1.2)
-"""
 
 
 
