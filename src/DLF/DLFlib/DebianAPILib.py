@@ -25,12 +25,12 @@ debianVersion = "bullseye"
 def RetrievePackageFilesAndDirectory(packageName, packageVersion):
     print("https://sources.debian.org/api/src/"+packageName+"/"+packageVersion+"/")
     try:
-        try:            
+        try:
             response = requests.get("https://sources.debian.org/api/src/"+packageName+"/latest/", timeout=10)
             time.sleep(1.2)
             if response.status_code == 200:
                 jsonResponse=response.json()
-                with open('../collectingDebianLicenses/'+packageName+'/'+packageName+'_pkg.json', 'w', encoding='utf-8') as f:
+                with open('collectingDebianLicenses/'+packageName+'/'+packageName+'_pkg.json', 'w', encoding='utf-8') as f:
                     print("writing file")
                     json.dump(jsonResponse, f, ensure_ascii=False, indent=4)
                 return jsonResponse
@@ -71,7 +71,7 @@ def RetrieveFilesInfo(packageName,packageVersion,path):
             if response.status_code == 200:
                 jsonResponse=response.json()
                 #print(jsonResponse)
-                with open('../collectingDebianLicenses/'+packageName+'/'+fileName+'.json', 'w', encoding='utf-8') as f:
+                with open('collectingDebianLicenses/'+packageName+'/'+fileName+'.json', 'w', encoding='utf-8') as f:
                     json.dump(jsonResponse, f, ensure_ascii=False, indent=4)
                 return jsonResponse
             else:
@@ -99,7 +99,7 @@ def RetrieveDirectoryInfo(packageName,packageVersion,path):
                 print("status code 200")
                 jsonResponse=response.json()
                 #print(jsonResponse)
-                fname = '../collectingDebianLicenses/'+packageName+"/"+directory+"/"+directory+'_dir.json'
+                fname = 'collectingDebianLicenses/'+packageName+"/"+directory+"/"+directory+'_dir.json'
                 # this control is required to scan nested directories
                 #if os.path.isfile(fname):
                 #if os.path.isfile(fname):
@@ -139,12 +139,12 @@ def RetrieveDirectoryInfoNotRecursive(packageName,packageVersion,path):
                 print("status code 200")
                 jsonResponse=response.json()
                 #print(jsonResponse)
-                fname = '../collectingDebianLicenses/'+packageName+"/"+directory+"/"+fileName+'_dir.json'
+                fname = 'collectingDebianLicenses/'+packageName+"/"+directory+"/"+fileName+'_dir.json'
                 # this control is required to scan nested directories
                 #if os.path.isfile(fname):
                 with open(fname, 'w', encoding='utf-8') as f:
                     json.dump(jsonResponse, f, ensure_ascii=False, indent=4)
-                    root = '../collectingDebianLicenses/'+packageName+'/'+directory
+                    root = 'collectingDebianLicenses/'+packageName+'/'+directory
                     jsonFile = fileName+'_dir.json'
                     print(root)
                     print(jsonFile)
@@ -195,7 +195,7 @@ def ScanJsonDir(packageName,packageVersion,root,jsonFile):
                                 print(path)
                             if not os.path.isdir(path):
                                 path = CreateDirectory(root,directory)
-                                path = path.replace("../collectingDebianLicenses/"+packageName+"/","")
+                                path = path.replace("collectingDebianLicenses/"+packageName+"/","")
                                 print (path)
                                 print ("Inside of type directory in ScanJsonDir")
                                 time.sleep(1.2)
@@ -214,7 +214,7 @@ def ScanJsonDir(packageName,packageVersion,root,jsonFile):
                             if not os.path.isfile(path+".json"):
                                 #print(fileName)
                                 #print(root)
-                                path = path.replace("../collectingDebianLicenses/"+packageName+"/","")
+                                path = path.replace("collectingDebianLicenses/"+packageName+"/","")
                                 print("Path generated inside of ScanJsonDir for FILE type")
                                 print(path)
                                 RetrieveFilesInfo(packageName,packageVersion,path)
@@ -228,7 +228,7 @@ def ScanJsonFile(packageName,root,jsonFile):
 def ScanJsonDirChecksum(root,packageName,jsonFile):
     fname = root+"/"+jsonFile
     print(fname)
-    directory = root.replace("../collectingDebianLicenses/"+packageName+"/","")
+    directory = root.replace("collectingDebianLicenses/"+packageName+"/","")
     if "//" in fname:
         fname = fname.replace("//","/")
         print(fname)
@@ -268,8 +268,8 @@ def ScanJsonDirChecksum(root,packageName,jsonFile):
 
 
 def DebianChecksumCollector(packageName,packageVersion):
-    parent_dir = "../collectingDebianLicenses"
-    dir = "../collectingDebianLicenses/"+packageName
+    parent_dir = "collectingDebianLicenses"
+    dir = "collectingDebianLicenses/"+packageName
     print("Inside Debian License Collector function in the server")
     #If the directory doesn't exist, create it and scan the package.
     if not os.path.isdir(dir):
@@ -280,9 +280,9 @@ def DebianChecksumCollector(packageName,packageVersion):
     ScanJsonDir(packageName,packageVersion,dir,packageName+"_pkg.json")
 
 def DebianLicenseCollector(packageName,packageVersion):
-    parent_dir = "../collectingDebianLicenses"
-    dir = "../collectingDebianLicenses/"+packageName
-    parent_dirChecksum = "../collectingDebianLicensesChecksum/"+packageName
+    parent_dir = "collectingDebianLicenses"
+    dir = "collectingDebianLicenses/"+packageName
+    parent_dirChecksum = "collectingDebianLicensesChecksum/"+packageName
     #If the directory doesn't exist, create it and scan the package.
     if not os.path.isdir(parent_dirChecksum):
         print("creating directory")
@@ -302,7 +302,7 @@ def DebianLicenseCollector(packageName,packageVersion):
                 pathChecksum = pathChecksum+"/"+file
                 print(pathChecksum)
                 if not os.path.isfile(pathChecksum):
-                    path = path.replace("../collectingDebianLicenses/"+packageName+"/","")
+                    path = path.replace("collectingDebianLicenses/"+packageName+"/","")
                     print("Running ScanJsonDirChecksum upon :"+root+"/"+file)
                     ScanJsonDirChecksum(root,packageName,file)
                     time.sleep(1.2)
@@ -324,7 +324,7 @@ def DebianLicenseCollector(packageName,packageVersion):
                     pathChecksum = pathChecksum+"/"+directory+"/"+file
                     print(pathChecksum)
                     if not os.path.isfile(pathChecksum):
-                        path = path.replace("../collectingDebianLicenses/"+packageName+"/","")
+                        path = path.replace("collectingDebianLicenses/"+packageName+"/","")
                         print("Running ScanJsonDirChecksum upon :"+root+"/"+directory+"/"+file)
                         ScanJsonDirChecksum(root+"/"+directory,packageName,file)
                         time.sleep(1.2)

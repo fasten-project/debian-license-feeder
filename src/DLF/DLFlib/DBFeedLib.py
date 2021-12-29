@@ -1,6 +1,9 @@
 #!/usr/bin/python
 from configparser import ConfigParser
 import psycopg2
+import os
+import json
+
 #from config import config
 
 def config(filename='../database.ini', section='postgresql'):
@@ -147,15 +150,20 @@ def insert_files(package_version_id, path, checksum):
     print("The id of "+path+", of the package version id: "+str(package_version_id)+"  is: "+str(id))
     return id
 
-def populateDB(packageName,packageVersion):
-    package_id = retrieve_id_package(packageName)
-    print("#########")
-    print("package_id")
-    print(package_id)
-    print("#########")
-    package_version_id = retrieve_id_package_versions(package_id, packageVersion )
-    print("package_version_id")
-    print(package_version_id)
-    print("#########")
-    # this should loop over all the files in the package
-    files_id = insert_files(package_version_id, path, checksum)
+def getLicenseForFile(packageName,packageVersion):
+    #package_id = retrieve_id_package(packageName)
+    #package_version_id = retrieve_id_package_versions(package_id, packageVersion )
+    dir = "collectingDebianLicensesChecksum/"+packageName
+    for (root,dirs,files) in os.walk(dir, topdown=True):
+        for file in files:
+            if ".json" in file:
+                fname = root+"/"+file
+                with open(fname, 'r') as f:
+                    #print("Opening file")
+                    print(fname)
+                    dict = json.load(f)
+                    #license = dict.get('result', {}).get('copyright',{}).get('license')
+                    print(dict['result']['copyright'][0]['license'])
+                    #newDict = dict['result']['copyright']
+                    #print(newDict)
+                    #print(newDict[0]['license'])

@@ -102,6 +102,7 @@ def GetDebianPackageVersion():
     print(packageVersion)
     DebianChecksumCollector(packageName,packageVersion)
     DebianLicenseCollector(packageName,packageVersion)
+    getLicenseForFile(packageName,packageVersion)
     # here should go the populateDB function, which is
     # a simulation of what will be inside fasten metadataDB
     # pupulateDB(packageName,packageVersion)
