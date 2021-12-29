@@ -3,7 +3,7 @@ from configparser import ConfigParser
 import psycopg2
 #from config import config
 
-def config(filename='database.ini', section='postgresql'):
+def config(filename='../database.ini', section='postgresql'):
     # create a parser
     parser = ConfigParser()
     # read config file
@@ -146,3 +146,16 @@ def insert_files(package_version_id, path, checksum):
             conn.close()
     print("The id of "+path+", of the package version id: "+str(package_version_id)+"  is: "+str(id))
     return id
+
+def populateDB(packageName,packageVersion):
+    package_id = retrieve_id_package(packageName)
+    print("#########")
+    print("package_id")
+    print(package_id)
+    print("#########")
+    package_version_id = retrieve_id_package_versions(package_id, packageVersion )
+    print("package_version_id")
+    print(package_version_id)
+    print("#########")
+    # this should loop over all the files in the package
+    files_id = insert_files(package_version_id, path, checksum)

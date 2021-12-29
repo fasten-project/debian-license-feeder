@@ -1,8 +1,4 @@
 import sys
-#from LCVlib.testlistsGithubAPI import GitHubURLList
-#from LCVlib.testlistsJSONfiles import JSONPathList
-#from LCVlib.verify import retrieveOutboundLicense, CheckOutboundLicense
-#from LCVlib.verify import RetrieveInboundLicenses, Compare, CompareFlag
 from dotenv import load_dotenv
 from os import environ, path
 import os
@@ -14,10 +10,6 @@ import pandas as pd
 import numpy as np
 import re
 import fileinput
-#from LCVlib.SPDXIdMapping import StaticMappingList,IsAnSPDX,StaticMapping,DynamicMapping,IsInAliases,ConvertToSPDX
-#from LCVlib.VerboseLicenseParsing import RemoveParenthesisAndSpecialChars
-#from LCVlib.CommonLists import *
-#from LCVlib.verify import CSV_to_dataframeOSADL
 
 '''
 * SPDX-FileCopyrightText: 2021 Michele Scarlato <michele.scarlato@endocode.com>
@@ -33,8 +25,7 @@ debianVersion = "bullseye"
 def RetrievePackageFilesAndDirectory(packageName, packageVersion):
     print("https://sources.debian.org/api/src/"+packageName+"/"+packageVersion+"/")
     try:
-        try:
-            #page1 = requests.get(ap)
+        try:            
             response = requests.get("https://sources.debian.org/api/src/"+packageName+"/latest/", timeout=10)
             time.sleep(1.2)
             if response.status_code == 200:
