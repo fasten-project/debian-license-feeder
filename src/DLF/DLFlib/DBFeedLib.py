@@ -6,7 +6,7 @@ import json
 
 #from config import config
 
-def config(filename='../database.ini', section='postgresql'):
+def config(filename='database.ini', section='postgresql'):
     # create a parser
     parser = ConfigParser()
     # read config file
@@ -71,7 +71,7 @@ def insert_package_versions(package_id, version, cg_generator):
     finally:
         if conn is not None:
             conn.close()
-    print("The package_version id of "+package_name+" "+version+" is: "+str(id))
+    #print("The package_version id of "+package_name+" "+version+" is: "+str(id))
     return id
 
 def retrieve_id_package(package_name):
@@ -124,10 +124,9 @@ def retrieve_id_package_versions(package_id, version):
     print("The package versions id of the package id "+str(package_id)+", version "+ version +" is: "+str(id))
     return id
 
-def insert_files(package_version_id, path, checksum):
-
+def insert_files(package_version_id, path, metadata):
     """ insert a new package into the packages table """
-    sql = """INSERT INTO files(package_version_id, path, checksum) VALUES(%s, %s, %s) RETURNING id"""
+    sql = """INSERT INTO files(package_version_id, path, metadata) VALUES(%s, %s, %s) RETURNING id"""
     conn = None
     id = None
     try:
@@ -135,7 +134,7 @@ def insert_files(package_version_id, path, checksum):
         conn = psycopg2.connect(**params)
         cur = conn.cursor()
         # execute the INSERT statement
-        cur.execute(sql, (package_version_id, path, checksum,))
+        cur.execute(sql, (package_version_id, path, metadata,))
         # get the generated id back
         id = cur.fetchone()[0]
         # commit the changes to the database
@@ -150,9 +149,17 @@ def insert_files(package_version_id, path, checksum):
     print("The id of "+path+", of the package version id: "+str(package_version_id)+"  is: "+str(id))
     return id
 
-def getLicenseForFile(packageName,packageVersion):
-    #package_id = retrieve_id_package(packageName)
-    #package_version_id = retrieve_id_package_versions(package_id, packageVersion )
+def PopulateDB(packageName,packageVersion):
+    forge = "Debian"
+    cg_generator = "CScout"
+    insert_package(packageName,forge)
+    package_id = retrieve_id_package(packageName)
+    insert_package_versions(package_id,packageVersion,cg_generator)
+    package_version_id = retrieve_id_package_versions(package_id, packageVersion)
+    return package_version_id
+
+
+def FeedLicenseForFile(packageName,packageVersion):
     dir = "collectingDebianLicensesChecksum/"+packageName
     for (root,dirs,files) in os.walk(dir, topdown=True):
         for file in files:
@@ -164,4 +171,14 @@ def getLicenseForFile(packageName,packageVersion):
                     versions = dict['result']['copyright']
                     for i in range(len(versions)):
                         if versions[i]['version'] == str(packageVersion):
-                            print(versions[i]['license'])
+                            license = versions[i]['license']
+                            metadata = '{ "licenses": [{"name": "'+ license +'", "source": "Debian API"}] }'
+                            print(metadata)
+                            path = versions[i]['path']
+                            print(path)
+                            package_id = retrieve_id_package(packageName)
+                            print("Package id is: "+str(package_id))
+                            package_version_id = retrieve_id_package_versions(package_id, packageVersion)
+                            print("Package version id is: "+str(package_version_id))
+                            files_id = insert_files(package_version_id, path, metadata)# checksum)
+                            print ("File :" +str(path)+ "has been inserted with "+str(files_id)+ " file ID")

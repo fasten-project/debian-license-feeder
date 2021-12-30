@@ -89,9 +89,24 @@ app.config["DEBUG"] = True
 def APIEndpoints():
     return render_template('APIEndpoints.html')
 
+@app.route('/populateDB', methods=['POST', 'GET'])
+def populateDBEndpoint():
+    args = request.args
+    packageNameAndVersion = args['packageNameAndVersion']
+    packageNameAndVersion = packageNameAndVersion.split(",")
+    packageName = packageNameAndVersion[0]
+    packageVersion = packageNameAndVersion[1]
+    print(packageName)
+    print(packageVersion)
+    # first populate the DB with a package
+    package_version_id = PopulateDB(packageName,packageVersion)
+    print(package_version_id)
+
+
+
 
 @app.route('/DebianPackageVersion', methods=['POST', 'GET'])
-def GetDebianPackageVersion():    
+def GetDebianPackageVersion():
     args = request.args
     packageNameAndVersion = args['packageNameAndVersion']
     packageNameAndVersion = packageNameAndVersion.split(",")
@@ -101,10 +116,8 @@ def GetDebianPackageVersion():
     print(packageVersion)
     DebianChecksumCollector(packageName,packageVersion)
     DebianLicenseCollector(packageName,packageVersion)
-    getLicenseForFile(packageName,packageVersion)
-    # here should go the populateDB function, which is
-    # a simulation of what will be inside fasten metadataDB
-    # pupulateDB(packageName,packageVersion)
+    FeedLicenseForFile(packageName,packageVersion)
+
     output = "Elaborating "+packageName+", version "+packageVersion+" ... "
     return output
 
