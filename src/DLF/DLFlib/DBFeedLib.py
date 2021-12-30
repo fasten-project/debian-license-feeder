@@ -3,6 +3,7 @@ from configparser import ConfigParser
 import psycopg2
 import os
 import json
+import time
 
 #from config import config
 
@@ -172,13 +173,18 @@ def FeedLicenseForFile(packageName,packageVersion):
                     for i in range(len(versions)):
                         if versions[i]['version'] == str(packageVersion):
                             license = versions[i]['license']
+                            currentPackagePath = fname.replace("collectingDebianLicensesChecksum/"+packageName+"/", '')
+                            currentPackagePath = currentPackagePath.replace(".json",'')
+                            print (currentPackagePath)
                             metadata = '{ "licenses": [{"name": "'+ license +'", "source": "Debian API"}] }'
                             print(metadata)
                             path = versions[i]['path']
                             print(path)
-                            package_id = retrieve_id_package(packageName)
-                            print("Package id is: "+str(package_id))
-                            package_version_id = retrieve_id_package_versions(package_id, packageVersion)
-                            print("Package version id is: "+str(package_version_id))
-                            files_id = insert_files(package_version_id, path, metadata)# checksum)
-                            print ("File :" +str(path)+ "has been inserted with "+str(files_id)+ " file ID")
+                            if currentPackagePath == path:
+                                package_id = retrieve_id_package(packageName)
+                                print("Package id is: "+str(package_id))
+                                package_version_id = retrieve_id_package_versions(package_id, packageVersion)
+                                print("Package version id is: "+str(package_version_id))
+                                files_id = insert_files(package_version_id, path, metadata)# checksum)
+                                print ("File :" +str(path)+ "has been inserted with "+str(files_id)+ " file ID")
+                                time.sleep(1)

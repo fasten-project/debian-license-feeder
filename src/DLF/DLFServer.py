@@ -101,6 +101,7 @@ def populateDBEndpoint():
     # first populate the DB with a package
     package_version_id = PopulateDB(packageName,packageVersion)
     print(package_version_id)
+    return str(package_version_id)
 
 
 
